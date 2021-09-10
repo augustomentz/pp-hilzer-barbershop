@@ -1,13 +1,26 @@
 package classes;
 
-public class Barber {
-    private String id;
+public class Barber extends Thread {
+    String status = "sleeping";
+    Customer currentCustomer;
 
-    public void setId(String id) {
-        this.id = id;
+    public Barber(String nome) {
+        super(nome);
     }
 
-    public String getId() {
-        return this.id;
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String newStatus) {
+        this.status = newStatus;
+    }
+
+    public Customer getCurrentCustomer() {
+        return this.currentCustomer;
+    }
+
+    public void setCurrentCustomer(Customer customer) {
+        this.currentCustomer = customer;
     }
 }

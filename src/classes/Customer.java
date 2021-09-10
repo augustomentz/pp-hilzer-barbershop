@@ -1,13 +1,20 @@
 package classes;
 
-public class Customer {
-    private String id;
+public class Customer extends Thread {
+    String status = "idle";
 
-    public void setId(String id) {
-        this.id = id;
+    public Customer(String nome) {
+        super(nome);
     }
 
-    public String getId() {
-        return this.id;
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String newStatus) {
+        this.status = newStatus;
+    }
+
+    public void run() {
     }
 }

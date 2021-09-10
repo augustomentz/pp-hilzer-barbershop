@@ -1,15 +1,31 @@
-import classes.Barber;
-import classes.Customer;
+import classes.*;
+
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Application {
-    public static void main(String args[]) {
-        Customer customer = new Customer();
-        customer.setId("1");
+    public static void main(String[] args) {
+        AtomicInteger customer_id = new AtomicInteger(0);
 
-        Barber barber = new Barber();
-        barber.setId("1");
+        Barbershop barbershop = new Barbershop(
+                new Barber("barber-1"),
+                new Barber("barber-2"),
+                new Barber("barber-3"),
+                new Couch(4),
+                new WaitingRoom(13)
+        );
 
-        System.out.println("Barber >>" + barber.getId());
-        System.out.println("Customer >>" + customer.getId());
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Customer customer = new Customer("Customer-" + customer_id.getAndIncrement());
+
+                customer.start();
+
+                System.out.println(barbershop.isFull());
+            }
+        }, 0, new Random().nextInt(15 - 10) + 10 * 1000);
     }
 }
