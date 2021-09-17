@@ -12,17 +12,20 @@ public class Barber extends Thread {
 
     public void run() {
         while(true) {
-            System.out.println(Thread.currentThread().getName() + " is sleeping waiting for a customer...");
+            synchronized (couch) {
+//                System.out.println(Thread.currentThread().getName() + " is sleeping waiting for a customer...");
 
-            if (this.couch.getList().size() > 0) {
-                Customer customer = this.couch.getFirst();
-                System.out.println(customer.getName() + "... esta sendo cortado pelo " + Thread.currentThread().getName());
-            }
+                if (couch.getList().size() > 0) {
+                    Customer customer = couch.getFirst();
+                    couch.removeFromList();
+                    customer.cuttingHair(this);
+                }
 
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e){
-                e.printStackTrace();
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e){
+                    e.printStackTrace();
+                }
             }
         }
     }

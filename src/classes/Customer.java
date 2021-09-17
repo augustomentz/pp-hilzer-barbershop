@@ -14,24 +14,28 @@ public class Customer extends Thread {
         start();
     }
 
+    void cuttingHair(Barber barber) {
+        System.out.println(barber.getName() + " are cutting the " + this.getName() + " hair.");
+    }
+
     public void run() {
-        System.out.println(Thread.currentThread().getName() + " entering at barbershop");
+        System.out.println(this.getName() + " entering at barbershop");
 
         while (!out) {
-            if (!couch.checkIsFull() && !waitingRoom.checkIfCustomerPresentInTheList(this.getName()) && !couch.checkIfCustomerPresentInTheList(this.getName())) {
+            Boolean hasPresentAtWaitingRoom = waitingRoom.checkIfCustomerPresentInTheList(this.getName());
+            Boolean hasPresentAtCouch = couch.checkIfCustomerPresentInTheList(this.getName());
+
+            if (!couch.checkIsFull() && !hasPresentAtWaitingRoom && !hasPresentAtCouch) {
                 couch.addToList(this);
-            } else if (!waitingRoom.checkIsFull() && !waitingRoom.checkIfCustomerPresentInTheList(this.getName()) && !couch.checkIfCustomerPresentInTheList(this.getName())) {
+            } else if (!waitingRoom.checkIsFull() && !hasPresentAtWaitingRoom && !hasPresentAtCouch) {
                 waitingRoom.addToList(this);
-            } else if (waitingRoom.checkIsFull() && !waitingRoom.checkIfCustomerPresentInTheList(this.getName()) && !couch.checkIfCustomerPresentInTheList(this.getName())) {
-                out = true;
             }
 
             try {
-                Thread.sleep(3000);
+                this.sleep(3000);
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
-        System.out.println(Thread.currentThread().getName() + " is leaving");
     }
 }

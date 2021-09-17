@@ -19,7 +19,11 @@ public class Application {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                new Customer("Customer-" + customer_id.getAndIncrement(), couch, waitingRoom);
+                if (!waitingRoom.checkIsFull()) {
+                    new Customer("Customer-" + customer_id.getAndIncrement(), couch, waitingRoom);
+                } else {
+                    System.out.println("Barbershop is full");
+                }
             }
         }, 0, new Random().nextInt(5 - 3) + 3 * 100);
     }
