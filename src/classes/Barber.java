@@ -1,26 +1,29 @@
 package classes;
 
 public class Barber extends Thread {
-    String status = "sleeping";
-    Customer currentCustomer;
+    Couch couch;
 
-    public Barber(String nome) {
+    public Barber(String nome, Couch couch) {
         super(nome);
+
+        this.couch = couch;
+        start();
     }
 
-    public String getStatus() {
-        return this.status;
-    }
+    public void run() {
+        while(true) {
+            System.out.println(Thread.currentThread().getName() + " is sleeping waiting for a customer...");
 
-    public void setStatus(String newStatus) {
-        this.status = newStatus;
-    }
+            if (this.couch.getList().size() > 0) {
+                Customer customer = this.couch.getFirst();
+                System.out.println(customer.getName() + "... esta sendo cortado pelo " + Thread.currentThread().getName());
+            }
 
-    public Customer getCurrentCustomer() {
-        return this.currentCustomer;
-    }
-
-    public void setCurrentCustomer(Customer customer) {
-        this.currentCustomer = customer;
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
     }
 }

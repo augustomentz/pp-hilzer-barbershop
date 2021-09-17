@@ -9,23 +9,18 @@ public class Application {
     public static void main(String[] args) {
         AtomicInteger customer_id = new AtomicInteger(0);
 
-        Barbershop barbershop = new Barbershop(
-                new Barber("barber-1"),
-                new Barber("barber-2"),
-                new Barber("barber-3"),
-                new Couch(4),
-                new WaitingRoom(13)
-        );
+        Couch couch = new Couch(4);
+        WaitingRoom waitingRoom = new WaitingRoom(13);
+
+        new Barber("barber-1", couch);
+        new Barber("barber-2", couch);
+        new Barber("barber-3", couch);
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Customer customer = new Customer("Customer-" + customer_id.getAndIncrement());
-
-                customer.start();
-
-                System.out.println(barbershop.isFull());
+                new Customer("Customer-" + customer_id.getAndIncrement(), couch, waitingRoom);
             }
-        }, 0, new Random().nextInt(15 - 10) + 10 * 1000);
+        }, 0, new Random().nextInt(5 - 3) + 3 * 100);
     }
 }

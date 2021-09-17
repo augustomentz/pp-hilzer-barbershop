@@ -44,4 +44,10 @@ public class Wait {
     public Integer getMaxSize() {
         return this.maxSize;
     }
+
+    public boolean checkIfCustomerPresentInTheList(String name) {
+        return this.getList()
+                .stream()
+                .anyMatch(customer -> customer.getName().equals(name));
+    }
 }
