@@ -1,29 +1,51 @@
 package classes;
 
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Customer extends Thread {
     private Couch couch;
     private WaitingRoom waitingRoom;
-    private boolean out = false;
+    private boolean hasCut = false;
 
     public Customer(String nome, Couch couch, WaitingRoom waitingRoom) {
         super(nome);
 
         this.couch = couch;
         this.waitingRoom = waitingRoom;
-
-        start();
     }
 
     void cuttingHair(Barber barber) {
-        System.out.println(barber.getName() + " are cutting the " + this.getName() + " hair.");
+        System.out.println("[" + barber.getName() + "]" + " are cutting the " + this.getName());
+        Integer time = (int)(Math.random() * 500);
+        this.hasCut = true;
+
+        try {
+            Thread.sleep(time);
+
+            System.out.println("[" + barber.getName() + "]" + " cut the hair of " + "[" + this.getName() + "]" + " in " + time + " ms");
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
     }
 
-    public void run() {
-        System.out.println(this.getName() + " entering at barbershop");
+    private synchronized  Boolean checkCouch() {
+        return couch.checkIfCustomerPresentInTheList(this.getName());
+    }
 
-        while (!out) {
-            Boolean hasPresentAtWaitingRoom = waitingRoom.checkIfCustomerPresentInTheList(this.getName());
-            Boolean hasPresentAtCouch = couch.checkIfCustomerPresentInTheList(this.getName());
+
+    private synchronized Boolean checkWaitingRoom() {
+        return waitingRoom.checkIfCustomerPresentInTheList(this.getName());
+    }
+
+    public synchronized void run() {
+        System.out.println("[" + this.getName() + "]" + " entering at barbershop");
+
+        while (!hasCut) {
+            Boolean hasPresentAtCouch = checkCouch();
+            Boolean hasPresentAtWaitingRoom = checkWaitingRoom();
 
             if (!couch.checkIsFull() && !hasPresentAtWaitingRoom && !hasPresentAtCouch) {
                 couch.addToList(this);
@@ -32,7 +54,7 @@ public class Customer extends Thread {
             }
 
             try {
-                this.sleep(3000);
+                Thread.sleep(2000);
             } catch (InterruptedException e){
                 e.printStackTrace();
             }

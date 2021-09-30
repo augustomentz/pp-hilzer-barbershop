@@ -12,19 +12,21 @@ public class Application {
         Couch couch = new Couch(4);
         WaitingRoom waitingRoom = new WaitingRoom(13);
 
-        new Barber("barber-1", couch);
-        new Barber("barber-2", couch);
-        new Barber("barber-3", couch);
+        new Barber("BARBER-1", couch);
+        new Barber("BARBER-2", couch);
+        new Barber("BARBER-3", couch);
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!waitingRoom.checkIsFull()) {
-                    new Customer("Customer-" + customer_id.getAndIncrement(), couch, waitingRoom);
+                    Customer customer = new Customer("CUSTOMER-" + customer_id.getAndIncrement(), couch, waitingRoom);
+
+                    customer.start();
                 } else {
                     System.out.println("Barbershop is full");
                 }
             }
-        }, 0, new Random().nextInt(5 - 3) + 3 * 100);
+        }, 0, new Random().nextInt(2 - 1) + 1 * 3000);
     }
 }
