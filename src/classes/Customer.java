@@ -31,10 +31,13 @@ public class Customer extends Thread {
         }
     }
 
-    private synchronized  Boolean checkCouch() {
+    public synchronized void pay(Barber barber) {
+        System.out.println(this.getName() + " payed the " + barber.getName());
+    };
+
+    private synchronized Boolean checkCouch() {
         return couch.checkIfCustomerPresentInTheList(this.getName());
     }
-
 
     private synchronized Boolean checkWaitingRoom() {
         return waitingRoom.checkIfCustomerPresentInTheList(this.getName());

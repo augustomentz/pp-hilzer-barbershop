@@ -11,10 +11,11 @@ public class Application {
 
         Couch couch = new Couch(4);
         WaitingRoom waitingRoom = new WaitingRoom(13);
+        CashRegister cashRegister = new CashRegister();
 
-        new Barber("BARBER-1", couch);
-        new Barber("BARBER-2", couch);
-        new Barber("BARBER-3", couch);
+        new Barber("BARBER-1", couch, cashRegister);
+        new Barber("BARBER-2", couch, cashRegister);
+        new Barber("BARBER-3", couch, cashRegister);
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override

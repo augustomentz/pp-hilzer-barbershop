@@ -2,11 +2,13 @@ package classes;
 
 public class Barber extends Thread {
     Couch couch;
+    CashRegister cashRegister;
 
-    public Barber(String nome, Couch couch) {
+    public Barber(String nome, Couch couch, CashRegister cashRegister) {
         super(nome);
 
         this.couch = couch;
+        this.cashRegister = cashRegister;
         start();
     }
 
@@ -16,6 +18,7 @@ public class Barber extends Thread {
                 Customer customer = this.couch.getFirst();
                 this.couch.removeFromList();
                 customer.cuttingHair(this);
+                cashRegister.acceptPayment(this, customer);
 
                 System.out.println("[" + customer.getName() + "]" + " has leaving the barbershop");
             } else {
