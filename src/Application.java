@@ -28,7 +28,7 @@ public class Application {
                     System.out.println("Barbershop is full");
                 }
             }
-        }, 0, new Random().nextInt(2 - 1) + 1 * 3000);
+        }, 0, new Random().nextInt(2 - 1) + 1 * 1000);
     }
 }
 

@@ -12,21 +12,32 @@ public class Barber extends Thread {
         start();
     }
 
-    public synchronized void run() {
+    public void run() {
         while(true) {
-            if (this.couch.getList().size() > 0) {
-                Customer customer = this.couch.getFirst();
-                this.couch.removeFromList();
+            Customer customer = null;
+
+            synchronized (couch) {
+                if (this.couch.getList().size() > 0) {
+                    customer = this.couch.getFirst();
+                    this.couch.removeFromList();
+
+                } else {
+//                    System.out.println("[" + this.getName() + "]" + " is sleeping waiting for clients");
+                }
+            }
+
+            if (customer != null) {
                 customer.cuttingHair(this);
-                cashRegister.acceptPayment(this, customer);
+
+                synchronized (cashRegister) {
+                    cashRegister.acceptPayment(this, customer);
+                }
 
                 System.out.println("[" + customer.getName() + "]" + " has leaving the barbershop");
-            } else {
-                System.out.println("[" + this.getName() + "]" + " is sleeping waiting for clients");
             }
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e){
                 e.printStackTrace();
             }

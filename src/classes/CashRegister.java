@@ -4,14 +4,15 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CashRegister {
-    private final Lock lock = new ReentrantLock(true);
-
     public void acceptPayment(Barber barber, Customer customer) {
+//        System.out.println("[" + customer.getName() + "]" + " start payment to " + "[" + barber.getName() + "]");
+
         try {
-            lock.lock();
-            System.out.println("Payment done from " + customer.getName() + " to " + barber.getName());
-        } finally {
-            lock.unlock();
+            Thread.sleep(1500);
+
+//            System.out.println("[" + barber.getName() + "]" + " received payment from " + "[" + customer.getName() + "]");
+        } catch (InterruptedException e){
+            e.printStackTrace();
         }
     }
 }

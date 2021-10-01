@@ -5,8 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/Barber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Barber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/CashRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/CashRegister.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classes/Wait.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Wait.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +31,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../JavaThread2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../trab_mauro/BarbeiroDorminhoco" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -81,10 +81,16 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="classes.Couch" memberName="customerList" />
+      </pinned-members>
+    </pin-to-top-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="this" />
         <watch expression="this" />
+        <watch expression="waitingRoom" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
