@@ -11,7 +11,7 @@ public class Wait {
         this.maxSize = size;
     }
 
-    public List<Customer> getList() {
+    public synchronized List<Customer> getList() {
         return this.customerList;
     }
 
@@ -49,5 +49,12 @@ public class Wait {
         return this.getList()
                 .stream()
                 .anyMatch(customer -> customer.getName().equals(name));
+    }
+
+    public synchronized Customer getAndRemoveFromList() {
+        Customer customer = this.getFirst();
+        this.removeFromList();
+
+        return customer;
     }
 }

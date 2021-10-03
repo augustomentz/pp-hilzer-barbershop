@@ -14,19 +14,14 @@ public class Barber extends Thread {
 
     public void run() {
         while(true) {
-            Customer customer = null;
 
-            synchronized (couch) {
-                if (this.couch.getList().size() > 0) {
-                    customer = this.couch.getFirst();
-                    this.couch.removeFromList();
+            if (this.couch.getList().size() > 0) {
+                Customer customer;
 
-                } else {
-//                    System.out.println("[" + this.getName() + "]" + " is sleeping waiting for clients");
+                synchronized (couch) {
+                    customer = this.couch.getAndRemoveFromList();
                 }
-            }
 
-            if (customer != null) {
                 customer.cuttingHair(this);
 
                 synchronized (cashRegister) {
@@ -34,7 +29,10 @@ public class Barber extends Thread {
                 }
 
                 System.out.println("[" + customer.getName() + "]" + " has leaving the barbershop");
+            } else {
+                System.out.println("[" + this.getName() + "]" + " is sleeping waiting for clients");
             }
+
 
             try {
                 Thread.sleep(1000);

@@ -1,10 +1,5 @@
 package classes;
 
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ThreadLocalRandom;
-
 public class Customer extends Thread {
     private Couch couch;
     private WaitingRoom waitingRoom;
@@ -18,14 +13,14 @@ public class Customer extends Thread {
     }
 
     void cuttingHair(Barber barber) {
-//        System.out.println("[" + barber.getName() + "]" + " are cutting the " + this.getName());
+        System.out.println("[" + barber.getName() + "]" + " are cutting the " + this.getName());
         Integer time = (int)(Math.random() * 500);
         this.hasCut = true;
 
         try {
             Thread.sleep(time);
 
-//            System.out.println("[" + barber.getName() + "]" + " cut the hair of " + "[" + this.getName() + "]" + " in " + time + " ms");
+            System.out.println("[" + barber.getName() + "]" + " cut the hair of " + "[" + this.getName() + "]" + " in " + time + " ms");
         } catch (InterruptedException e){
             e.printStackTrace();
         }
@@ -40,21 +35,16 @@ public class Customer extends Thread {
     }
 
     public void run() {
-        System.out.println("[" + this.getName() + "]" + " entering at barbershop " + this.waitingRoom.getList().size());
+        System.out.println("[" + this.getName() + "]" + " entering at barbershop ");
 
         while (!hasCut) {
-            Boolean hasPresentAtCouch = checkCouch();
-            Boolean hasPresentAtWaitingRoom = checkWaitingRoom();
-
-            synchronized (couch) {
-                if (!couch.checkIsFull() && !hasPresentAtWaitingRoom && !hasPresentAtCouch) {
-                    couch.addToList(this);
-                }
+            synchronized (waitingRoom) {
+                waitingRoom.addToList(this);
             }
 
-            synchronized (waitingRoom) {
-                if (!waitingRoom.checkIsFull() && !hasPresentAtWaitingRoom && !hasPresentAtCouch) {
-                    waitingRoom.addToList(this);
+            synchronized (couch) {
+                if (!couch.checkIsFull()) {
+                    this.couch.addToList(this.waitingRoom.getAndRemoveFromList());
                 }
             }
 
