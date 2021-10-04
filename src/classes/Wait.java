@@ -15,37 +15,37 @@ public class Wait {
         return this.customerList;
     }
 
-    public Customer getFirst() {
+    public synchronized Customer getFirst() {
         return this.customerList
                 .stream()
                 .findFirst()
                 .orElse(null);
     }
 
-    public Customer getLast() {
+    public synchronized Customer getLast() {
         return this.customerList
                 .stream()
                 .reduce((first, second) -> second)
                 .orElse(null);
     }
 
-    public void addToList(Customer customer) {
+    public synchronized void addToList(Customer customer) {
         this.customerList.add(customer);
     }
 
-    public boolean checkIsFull() {
+    public synchronized boolean checkIsFull() {
         return this.customerList.size() == this.getMaxSize() ? true : false;
     }
 
-    public void removeFromList() {
+    public synchronized void removeFromList() {
         this.customerList.remove(0);
     }
 
-    public Integer getMaxSize() {
+    public synchronized Integer getMaxSize() {
         return this.maxSize;
     }
 
-    public boolean checkIfCustomerPresentInTheList(String name) {
+    public synchronized boolean checkIfCustomerPresentInTheList(String name) {
         return this.getList()
                 .stream()
                 .anyMatch(customer -> customer.getName().equals(name));

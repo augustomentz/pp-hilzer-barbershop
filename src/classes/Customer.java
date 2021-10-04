@@ -38,15 +38,16 @@ public class Customer extends Thread {
         System.out.println("[" + this.getName() + "]" + " entering at barbershop ");
 
         while (!hasCut) {
-            synchronized (waitingRoom) {
+            if (!checkWaitingRoom() && !checkCouch()) {
                 waitingRoom.addToList(this);
             }
 
             synchronized (couch) {
-                if (!couch.checkIsFull()) {
+                if (!couch.checkIsFull() && checkWaitingRoom() && !checkCouch()) {
                     this.couch.addToList(this.waitingRoom.getAndRemoveFromList());
                 }
             }
+
 
             try {
                 Thread.sleep(1000);
