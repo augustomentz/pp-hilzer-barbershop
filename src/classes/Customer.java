@@ -3,7 +3,7 @@ package classes;
 import java.util.Random;
 
 public class Customer extends Thread {
-    private final Wait list;
+    private final Wait customersList;
     private CustomerStatusEnum status = CustomerStatusEnum.STANDING;
 
     public CustomerStatusEnum getStatus() {
@@ -14,10 +14,10 @@ public class Customer extends Thread {
         this.status = status;
     }
 
-    public Customer(String nome, Wait list) {
+    public Customer(String nome, Wait customersList) {
         super(nome);
 
-        this.list = list;
+        this.customersList = customersList;
     }
 
     void cuttingHair(Barber barber) {
@@ -28,14 +28,15 @@ public class Customer extends Thread {
             Thread.sleep(1000 + new Random().nextInt(2000));
 
             Logger.log("[" + barber.getName() + "]" + " cut the hair of " + "[" + this.getName() + "]");
+            this.setStatus(CustomerStatusEnum.FINALIZED);
         } catch (InterruptedException e){
             e.printStackTrace();
         }
     }
 
     void searchForSpaceToSeatdown() {
-        synchronized (this.list) {
-            if (this.list.getList().size() < 4) {
+        synchronized (this.customersList) {
+            if (this.customersList.getList().size() < 4) {
                 this.setStatus(CustomerStatusEnum.SEATDOWNED);
 
                 Logger.log("[" + this.getName() + "]" + " came in at barbershop and seatdown at couch");
@@ -45,7 +46,7 @@ public class Customer extends Thread {
                 Logger.log("[" + this.getName() + "]" + " came in at barbershop and waiting for a space at couch");
             }
 
-            this.list.addToList(this);
+            this.customersList.addToList(this);
         }
     }
 

@@ -1,21 +1,21 @@
 package classes;
 
 public class Barber extends Thread {
-    Wait list;
+    Wait customersList;
     CashRegister cashRegister;
     Customer customer;
 
-    public Barber(String nome, Wait list, CashRegister cashRegister) {
+    public Barber(String nome, Wait customersList, CashRegister cashRegister) {
         super(nome);
 
-        this.list = list;
+        this.customersList = customersList;
         this.cashRegister = cashRegister;
         start();
     }
 
     private void callCustomerToCut() {
-        synchronized (this.list) {
-            if (this.list.getList().isEmpty()) {
+        synchronized (this.customersList) {
+            if (this.customersList.getList().isEmpty()) {
                 Logger.log("[" + this.getName() + "]" + " are sleeping waiting for clients...");
             } else {
                 this.customer = this.callCustomerAndFreeSpaces();
@@ -34,12 +34,12 @@ public class Barber extends Thread {
     }
 
     private Customer callCustomerAndFreeSpaces() {
-        this.customer = this.list.getFirst();
-        this.list.getList().remove(0);
+        this.customer = this.customersList.getFirst();
+        this.customersList.getList().remove(0);
 
         for (int i = 0; i < 4; i++) {
             try {
-                Customer findCustomer = this.list.getList().get(i);
+                Customer findCustomer = this.customersList.getList().get(i);
 
                 if (findCustomer.getStatus().equals(CustomerStatusEnum.STANDING)) {
                     findCustomer.setStatus(CustomerStatusEnum.SEATDOWNED);
