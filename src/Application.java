@@ -10,7 +10,6 @@ public class Application {
         AtomicInteger customer_id = new AtomicInteger(0);
 
         Couch couch = new Couch(4);
-        WaitingRoom waitingRoom = new WaitingRoom(13);
         CashRegister cashRegister = new CashRegister();
 
         new Barber("BARBER-1", couch, cashRegister);
@@ -20,17 +19,20 @@ public class Application {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (!waitingRoom.checkIsFull()) {
-                    Customer customer = new Customer("CUSTOMER-" + customer_id.getAndIncrement(), couch, waitingRoom);
+            if (couch.getList().size() < 4) {
+                Customer customer = new Customer("CUSTOMER-" + customer_id.getAndIncrement(), couch);
 
-                    customer.start();
-                } else {
-                    System.out.println("Barbershop is full");
-                    System.out.println("WAITING ROOM: " + waitingRoom.getList().size() + " " + waitingRoom.getList().toString());
-                    System.out.println("SOFA: " + couch.getList().size() + " " + couch.getList().toString());
-                }
+                customer.start();
+            } else {
+                System.out.println("");
+                System.out.println("==================================================");
+                System.out.println("Barbershop is full");
+                System.out.println("SOFA: " + couch.getList().size() + " " + couch.getList().toString());
+                System.out.println("==================================================");
+                System.out.println("");
             }
-        }, 0, new Random().nextInt(2 - 1) + 1 * 500);
+            }
+        }, 0, new Random().nextInt(2 - 1) + 1 * 760);
     }
 }
 

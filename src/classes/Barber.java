@@ -1,8 +1,9 @@
 package classes;
 
 public class Barber extends Thread {
-    Couch couch;
+    final Couch couch;
     CashRegister cashRegister;
+    Customer customer;
 
     public Barber(String nome, Couch couch, CashRegister cashRegister) {
         super(nome);
@@ -14,22 +15,25 @@ public class Barber extends Thread {
 
     public void run() {
         while(true) {
+            synchronized (this.couch) {
+                if (this.couch.getList().isEmpty()) {
+                    System.out.println("[" + this.getName() + "]" + " are sleeping waiting for clients...");
 
-            if (this.couch.getList().size() > 0) {
-                Customer customer;
-
-                customer = this.couch.getAndRemoveFromList();
-                customer.cuttingHair(this);
-
-                synchronized (cashRegister) {
-                    cashRegister.acceptPayment(this, customer);
+                } else {
+                    this.customer = this.couch.getFirst();
+                    this.couch.getList().removeFirst();
                 }
-
-                System.out.println("[" + customer.getName() + "]" + " has leaving the barbershop");
-            } else {
-                System.out.println("[" + this.getName() + "]" + " is sleeping waiting for clients");
             }
 
+            if (customer != null) {
+                this.customer.cuttingHair(this);
+
+                synchronized (this.cashRegister) {
+                    this.cashRegister.acceptPayment(this, customer);
+                }
+
+                System.out.println("[" + this.customer.getName() + "]" + " leaves the barbershop and the " + "[" + this.getName() + "]" + " is free to get new clients");
+            }
 
             try {
                 Thread.sleep(1000);

@@ -1,17 +1,17 @@
 package classes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Wait {
     Integer maxSize;
-    private ArrayList<Customer> customerList = new ArrayList<>();
+    LinkedList<Customer> customerList;
 
     public Wait(Integer size) {
         this.maxSize = size;
+        this.customerList = new LinkedList<Customer>();
     }
 
-    public List<Customer> getList() {
+    public LinkedList<Customer> getList() {
         return this.customerList;
     }
 
@@ -22,41 +22,7 @@ public class Wait {
                 .orElse(null);
     }
 
-    public Customer getLast() {
-        return this.customerList
-                .stream()
-                .reduce((first, second) -> second)
-                .orElse(null);
-    }
-
-    public synchronized void addToList(Customer customer) {
-        this.customerList.add(customer);
-    }
-
-    public boolean checkIsFull() {
-        return this.customerList.size() == this.getMaxSize() ? true : false;
-    }
-
-    public void removeFromList() {
-        synchronized (this.customerList) {
-            this.customerList.remove(0);
-        }
-    }
-
-    public Integer getMaxSize() {
-        return this.maxSize;
-    }
-
-    public boolean checkIfCustomerPresentInTheList(String name) {
-        return this.getList()
-                .stream()
-                .anyMatch(customer -> customer.getName().equals(name));
-    }
-
-    public synchronized Customer getAndRemoveFromList() {
-        Customer customer = this.getFirst();
-        this.removeFromList();
-
-        return customer;
+    public void addToList(Customer customer) {
+        this.customerList.addLast(customer);
     }
 }
