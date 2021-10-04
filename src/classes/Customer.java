@@ -1,59 +1,62 @@
 package classes;
 
-public class Customer extends Thread {
-    private Couch couch;
-    private WaitingRoom waitingRoom;
-    private boolean hasCut = false;
+import java.util.Random;
 
-    public Customer(String nome, Couch couch, WaitingRoom waitingRoom) {
+public class Customer extends Thread {
+    private final Wait customersList;
+    private CustomerStatusEnum status = CustomerStatusEnum.STANDING;
+
+    public CustomerStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(CustomerStatusEnum status) {
+        this.status = status;
+    }
+
+    public Customer(String nome, Wait customersList) {
         super(nome);
 
-        this.couch = couch;
-        this.waitingRoom = waitingRoom;
+        this.customersList = customersList;
     }
 
     void cuttingHair(Barber barber) {
-        System.out.println("[" + barber.getName() + "]" + " are cutting the " + this.getName());
-        Integer time = (int)(Math.random() * 500);
-        this.hasCut = true;
+        Logger.log("[" + barber.getName() + "]" + " are cutting the " + this.getName());
+        this.setStatus(CustomerStatusEnum.CUTTING);
 
         try {
-            Thread.sleep(time);
+            Thread.sleep(1000 + new Random().nextInt(2000));
 
-            System.out.println("[" + barber.getName() + "]" + " cut the hair of " + "[" + this.getName() + "]" + " in " + time + " ms");
+            Logger.log("[" + barber.getName() + "]" + " cut the hair of " + "[" + this.getName() + "]");
+            this.setStatus(CustomerStatusEnum.FINALIZED);
         } catch (InterruptedException e){
             e.printStackTrace();
         }
     }
 
-    private Boolean checkCouch() {
-        return couch.checkIfCustomerPresentInTheList(this.getName());
-    }
+    void searchForSpaceToSeatdown() {
+        synchronized (this.customersList) {
+            if (this.customersList.getList().size() < 4) {
+                this.setStatus(CustomerStatusEnum.SEATDOWNED);
 
-    private Boolean checkWaitingRoom() {
-        return waitingRoom.checkIfCustomerPresentInTheList(this.getName());
+                Logger.log("[" + this.getName() + "]" + " came in at barbershop and seatdown at couch");
+            } else {
+                this.setStatus(CustomerStatusEnum.STANDING);
+
+                Logger.log("[" + this.getName() + "]" + " came in at barbershop and waiting for a space at couch");
+            }
+
+            this.customersList.addToList(this);
+        }
     }
 
     public void run() {
-        System.out.println("[" + this.getName() + "]" + " entering at barbershop ");
+        this.searchForSpaceToSeatdown();
 
-        while (!hasCut) {
-            if (!checkWaitingRoom() && !checkCouch()) {
-                waitingRoom.addToList(this);
-            }
-
-            synchronized (couch) {
-                if (!couch.checkIsFull() && checkWaitingRoom() && !checkCouch()) {
-                    this.couch.addToList(this.waitingRoom.getAndRemoveFromList());
-                }
-            }
-
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e){
+            e.printStackTrace();
         }
     }
 }

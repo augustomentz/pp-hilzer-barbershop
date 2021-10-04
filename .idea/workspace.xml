@@ -2,11 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f4d1078-d009-498e-a2e7-25d3e566c342" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Barbershop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classes/CustomerStatusEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classes/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/Barber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Barber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/Barbershop.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/CashRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/CashRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/Couch.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classes/Wait.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/Wait.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/WaitingRoom.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +31,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1xvOmkgTTt38BZPNpTJGWnHinFL" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -44,8 +54,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Application" />
+    <configuration name="Barbershop" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Barbershop" />
       <module name="hilzer-barbershop" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -53,7 +63,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Application" />
+        <item itemvalue="Application.Barbershop" />
       </list>
     </recent_temporary>
   </component>
