@@ -1,17 +1,17 @@
 package classes;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Wait {
     Integer maxSize;
-    LinkedList<Customer> customerList;
+    ArrayList<Customer> customerList;
 
     public Wait(Integer size) {
         this.maxSize = size;
-        this.customerList = new LinkedList<Customer>();
+        this.customerList = new ArrayList<Customer>(size);
     }
 
-    public LinkedList<Customer> getList() {
+    public ArrayList<Customer> getList() {
         return this.customerList;
     }
 
@@ -23,6 +23,10 @@ public class Wait {
     }
 
     public void addToList(Customer customer) {
-        this.customerList.addLast(customer);
+        this.customerList.add(customer);
+    }
+
+    public boolean isFull() {
+        return this.customerList.size() == this.maxSize;
     }
 }
