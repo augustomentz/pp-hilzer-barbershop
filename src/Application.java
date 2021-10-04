@@ -26,9 +26,11 @@ public class Application {
                     customer.start();
                 } else {
                     System.out.println("Barbershop is full");
+                    System.out.println("WAITING ROOM: " + waitingRoom.getList().size() + " " + waitingRoom.getList().toString());
+                    System.out.println("SOFA: " + couch.getList().size() + " " + couch.getList().toString());
                 }
             }
-        }, 0, new Random().nextInt(2 - 1) + 1 * 1000);
+        }, 0, new Random().nextInt(2 - 1) + 1 * 500);
     }
 }
 

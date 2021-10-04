@@ -11,7 +11,7 @@ public class Wait {
         this.maxSize = size;
     }
 
-    public synchronized List<Customer> getList() {
+    public List<Customer> getList() {
         return this.customerList;
     }
 
@@ -29,7 +29,7 @@ public class Wait {
                 .orElse(null);
     }
 
-    public void addToList(Customer customer) {
+    public synchronized void addToList(Customer customer) {
         this.customerList.add(customer);
     }
 
@@ -38,7 +38,9 @@ public class Wait {
     }
 
     public void removeFromList() {
-        this.customerList.remove(0);
+        synchronized (this.customerList) {
+            this.customerList.remove(0);
+        }
     }
 
     public Integer getMaxSize() {

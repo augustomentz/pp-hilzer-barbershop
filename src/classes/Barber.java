@@ -18,10 +18,7 @@ public class Barber extends Thread {
             if (this.couch.getList().size() > 0) {
                 Customer customer;
 
-                synchronized (couch) {
-                    customer = this.couch.getAndRemoveFromList();
-                }
-
+                customer = this.couch.getAndRemoveFromList();
                 customer.cuttingHair(this);
 
                 synchronized (cashRegister) {

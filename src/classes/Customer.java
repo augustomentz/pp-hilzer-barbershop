@@ -39,14 +39,20 @@ public class Customer extends Thread {
 
         while (!hasCut) {
             synchronized (waitingRoom) {
-                waitingRoom.addToList(this);
+                if (!waitingRoom.checkIsFull() && !checkCouch() && !checkWaitingRoom()) {
+                    this.waitingRoom.addToList(this);
+                }
             }
 
             synchronized (couch) {
-                if (!couch.checkIsFull()) {
-                    this.couch.addToList(this.waitingRoom.getAndRemoveFromList());
+                if (!couch.checkIsFull() && !checkCouch() && checkWaitingRoom()) {
+                    this.couch.addToList(this.waitingRoom.getList().get(0));
+                    this.waitingRoom.getList().remove(0);
                 }
             }
+
+            System.out.println("WAITING ROOM: " + this.waitingRoom.getList().size() + " " + this.waitingRoom.getList().toString());
+            System.out.println("SOFA: " + this.couch.getList().size() + " " + this.couch.getList().toString());
 
             try {
                 Thread.sleep(1000);
