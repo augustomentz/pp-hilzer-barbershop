@@ -21,13 +21,13 @@ public class Customer extends Thread {
     }
 
     void cuttingHair(Barber barber) {
-        Logger.log("[" + barber.getName() + "]" + " are cutting the " + this.getName());
+        Logger.log("[" + barber.getName() + "]" + " está cortando o cabelo do " + "[" + this.getName() + "]");
         this.setStatus(CustomerStatusEnum.CUTTING);
 
         try {
             Thread.sleep(1000 + new Random().nextInt(2000));
 
-            Logger.log("[" + barber.getName() + "]" + " cut the hair of " + "[" + this.getName() + "]");
+            Logger.log("[" + barber.getName() + "]" + " cortou o cabelo do " + "[" + this.getName() + "]");
             this.setStatus(CustomerStatusEnum.FINALIZED);
         } catch (InterruptedException e){
             e.printStackTrace();
@@ -39,11 +39,11 @@ public class Customer extends Thread {
             if (this.customersList.getList().size() < 4) {
                 this.setStatus(CustomerStatusEnum.SEATDOWNED);
 
-                Logger.log("[" + this.getName() + "]" + " came in at barbershop and seatdown at couch");
+                Logger.log("[" + this.getName() + "]" + " entrou na barbearia e sentou-se no sofá");
             } else {
                 this.setStatus(CustomerStatusEnum.STANDING);
 
-                Logger.log("[" + this.getName() + "]" + " came in at barbershop and waiting for a space at couch");
+                Logger.log("[" + this.getName() + "]" + " entrou na barbearia e está esperando em pé por um espaço no sofá");
             }
 
             this.customersList.addToList(this);

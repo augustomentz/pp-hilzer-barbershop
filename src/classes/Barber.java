@@ -16,7 +16,7 @@ public class Barber extends Thread {
     private void callCustomerToCut() {
         synchronized (this.customersList) {
             if (this.customersList.getList().isEmpty()) {
-                Logger.log("[" + this.getName() + "]" + " are sleeping waiting for clients...");
+                Logger.log("[" + this.getName() + "]" + " está dormindo esperando por clientes...");
             } else {
                 this.customer = this.callCustomerAndFreeSpaces();
             }
@@ -29,7 +29,7 @@ public class Barber extends Thread {
                 this.cashRegister.acceptPayment(this, customer);
             }
 
-            Logger.log("[" + this.customer.getName() + "]" + " leaves the barbershop and the " + "[" + this.getName() + "]" + " is free to get new clients");
+            Logger.log("[" + this.customer.getName() + "]" + " saiu da barbearia e o " + "[" + this.getName() + "]" + " está livre para atender outro cliente");
         }
     }
 
@@ -44,7 +44,7 @@ public class Barber extends Thread {
                 if (findCustomer.getStatus().equals(CustomerStatusEnum.STANDING)) {
                     findCustomer.setStatus(CustomerStatusEnum.SEATDOWNED);
 
-                    Logger.log("[" + this.getName() + "]" + " call " + "[" + this.customer.getName() + "]" + " to cut and " + "[" + findCustomer.getName() + "]" + " get your space at couch");
+                    Logger.log("[" + this.getName() + "]" + " chamou o " + "[" + this.customer.getName() + "]" + " para cortar e o " + "[" + findCustomer.getName() + "]" + " sentou no seu lugar no sofá");
                 }
             } catch (Exception e){
             }
