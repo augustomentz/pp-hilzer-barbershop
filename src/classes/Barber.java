@@ -1,9 +1,9 @@
 package classes;
 
 public class Barber extends Thread {
-    Wait customersList;
-    CashRegister cashRegister;
-    Customer customer;
+    private final Wait customersList;
+    private final CashRegister cashRegister;
+    private Customer customer;
 
     public Barber(String nome, Wait customersList, CashRegister cashRegister) {
         super(nome);

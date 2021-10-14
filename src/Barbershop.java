@@ -19,17 +19,17 @@ public class Barbershop {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (!customersList.isFull()) {
-                    Customer customer = new Customer("Cliente #" + (customer_id.getAndIncrement() + 1), customersList);
+            if (!customersList.isFull()) {
+                Customer customer = new Customer("Cliente #" + (customer_id.getAndIncrement() + 1), customersList);
 
-                    customer.start();
-                } else {
-                    Logger.log("");
-                    Logger.log("================================================");
-                    Logger.log("A barbearia está cheia, não há espaço para mais clientes!");
-                    Logger.log("================================================");
-                    Logger.log("");
-                }
+                customer.start();
+            } else {
+                Logger.log("");
+                Logger.log("================================================");
+                Logger.log("A barbearia está cheia, não há espaço para mais clientes!");
+                Logger.log("================================================");
+                Logger.log("");
+            }
             }
         }, 0, 500 + new Random().nextInt(1100));
     }

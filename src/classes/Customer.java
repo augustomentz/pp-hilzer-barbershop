@@ -20,7 +20,7 @@ public class Customer extends Thread {
         this.customersList = customersList;
     }
 
-    void cuttingHair(Barber barber) {
+    public void cuttingHair(Barber barber) {
         Logger.log("[" + barber.getName() + "]" + " está cortando o cabelo do " + "[" + this.getName() + "]");
         this.setStatus(CustomerStatusEnum.CUTTING);
 
@@ -34,7 +34,7 @@ public class Customer extends Thread {
         }
     }
 
-    void searchForSpaceToSeatdown() {
+    private void searchForSpaceToSeatdown() {
         synchronized (this.customersList) {
             if (this.customersList.getList().size() < 4) {
                 this.setStatus(CustomerStatusEnum.SEATDOWNED);
