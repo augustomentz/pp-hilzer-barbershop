@@ -3,8 +3,8 @@ package classes;
 import java.util.ArrayList;
 
 public class Wait {
-    Integer maxSize;
-    ArrayList<Customer> customerList;
+    private final Integer maxSize;
+    public ArrayList<Customer> customerList;
 
     public Wait(Integer size) {
         this.maxSize = size;
